@@ -9,6 +9,8 @@ def home(request):
     return render(request, 'home.html', {'user': request.user})
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
