@@ -3,14 +3,14 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 
 from livebff.core.forms import SignUpForm
+from livebff.common.decorators import redirect_to_home_if_authenticated
 
 @login_required
 def home(request):
     return render(request, 'home.html', {'user': request.user})
 
+@redirect_to_home_if_authenticated
 def signup(request):
-    if request.user.is_authenticated:
-        return redirect('home')
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
