@@ -125,8 +125,11 @@ STATIC_URL = '/static/'
 
 INSTALLED_APPS += [
     'livebff.core',
+    'channels',
 ]
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = LOGIN_URL
+
+ASGI_APPLICATION = 'livebff.routing.application'
