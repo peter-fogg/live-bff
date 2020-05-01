@@ -124,8 +124,9 @@ STATIC_URL = '/static/'
 ################################################################################
 
 INSTALLED_APPS += [
-    'livebff.core',
     'channels',
+    'livebff.core',
+    'livebff.chat_api',
 ]
 
 LOGIN_URL = '/login/'
