@@ -1,4 +1,3 @@
-from asgiref.sync import sync_to_async
 from channels.auth import AuthMiddlewareStack
 from channels.db import database_sync_to_async
 from channels.routing import URLRouter
@@ -18,8 +17,8 @@ from livebff.chat_api.routing import websocket_urlpatterns
 @pytest.mark.django_db(transaction=True)
 async def test_chat_socket():
     client = Client()
-    user = await create_test_user()
-    await sync_to_async(client.force_login)(user=user)
+    user = await database_sync_to_async(create_test_user)()
+    await database_sync_to_async(client.force_login)(user=user)
     application = AuthMiddlewareStack(URLRouter(websocket_urlpatterns))
     communicator = WebsocketCommunicator(
         application,
@@ -37,7 +36,6 @@ async def test_chat_socket():
     assert json.loads(response) == json_data
     await communicator.disconnect()
 
-@database_sync_to_async
 def create_test_user(
         username='tnorgay',
         password='snow',
