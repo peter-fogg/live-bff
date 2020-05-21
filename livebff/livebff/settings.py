@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'livebff.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'livebff',
         'USER': 'livebff_django',
         'PASSWORD': 'this_is_a_garbage_password',
@@ -131,6 +131,7 @@ INSTALLED_APPS += [
     'channels',
     'livebff.core',
     'livebff.chat_api',
+    'django.contrib.gis',
 ]
 
 LOGIN_URL = '/login/'
