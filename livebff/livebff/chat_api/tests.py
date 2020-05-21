@@ -36,6 +36,14 @@ async def test_chat_socket():
     assert json.loads(response) == json_data
     await communicator.disconnect()
 
+@pytest.mark.asyncio
+async def test_anonymous_user():
+    application = AuthMiddlewareStack(URLRouter(websocket_urlpatterns))
+    communicator = WebsocketCommunicator(application, 'ws/chat_api/0123456789/')
+    connected, _ = await communicator.connect()
+    assert not connected
+    await communicator.disconnect()
+
 def create_test_user(
         username='tnorgay',
         password='snow',
